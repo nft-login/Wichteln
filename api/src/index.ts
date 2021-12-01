@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
+import { RegisterRoutes } from "../build/routes";
 
 const PORT = process.env.PORT || 8000;
 
@@ -17,14 +18,16 @@ app.get("/ping", async (_req, res) => {
 });
 
 app.use(
-    "/docs",
-    swaggerUi.serve,
-    swaggerUi.setup(undefined, {
-      swaggerOptions: {
-        url: "/swagger.json",
-      },
-    })
-  );
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(undefined, {
+    swaggerOptions: {
+      url: "/swagger.json",
+    },
+  })
+);
+
+RegisterRoutes(app);
 
 app.listen(PORT, () => {
   console.log("Server is running on port", PORT);
