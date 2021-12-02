@@ -12,6 +12,10 @@ export class FilesController {
     writeFileSync(`uploads/${tokenId}`, file.buffer);
   }
 
+
+  /**
+   * @example tokenId "2"
+   */
   @Get("{tokenId}")
   @Response<File, { 'content-type': 'image/png' }>(200)
   public async file(

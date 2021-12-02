@@ -1,5 +1,6 @@
 import express from "express";
 import { FilesController } from '../controllers/filesController';
+import { Web3Controller } from "../controllers/web3Controller";
 
 const router = express.Router();
 
@@ -9,13 +10,27 @@ router.post("/files", async (req, res) => {
     return res.send(response);
 });
 
-  /**
-   * @example tokenId "2"
-   */
-
 router.get("/files/:tokenId", async (req, res) => {
     const controller = new FilesController();
     const response = await controller.file(Number.parseInt(req.params.tokenId));
+    return res.send(response);
+});
+
+router.get("/token/count", async (req, res) => {
+    const controller = new Web3Controller();
+    const response = await controller.count();
+    return res.send(response);
+});
+
+router.get("/token/owner/:tokenId", async (req, res) => {
+    const controller = new Web3Controller();
+    const response = await controller.owner(Number.parseInt(req.params.tokenId));
+    return res.send(response);
+});
+
+router.get("/token/account/:account", async (req, res) => {
+    const controller = new Web3Controller();
+    const response = await controller.account(req.params.account);
     return res.send(response);
 });
 
