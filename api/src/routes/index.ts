@@ -1,6 +1,7 @@
 import express from "express";
 import { FilesController } from '../controllers/filesController';
 import { Web3Controller } from "../controllers/web3Controller";
+import { ProfileController } from "../controllers/profileController";
 
 const router = express.Router();
 
@@ -31,6 +32,12 @@ router.get("/token/owner/:tokenId", async (req, res) => {
 router.get("/token/account/:account", async (req, res) => {
     const controller = new Web3Controller();
     const response = await controller.account(req.params.account);
+    return res.send(response);
+});
+
+router.get("/profile/me", async (req, res) => {
+    const controller = new ProfileController();
+    const response = await controller.profile(req);
     return res.send(response);
 });
 
