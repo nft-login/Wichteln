@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TokenPreview from "./TokenPreview.vue";
-defineProps<{ tokenId: number; url: string }>();
+import FileUpload from "./FileUpload.vue";
+defineProps<{ tokenId: number; url: string; api: string }>();
 </script>
 
 <template>
@@ -8,6 +9,7 @@ defineProps<{ tokenId: number; url: string }>();
     <div class="card-body">
       <h1>Token: {{ tokenId }}</h1>
       <TokenPreview :url="url" />
+      <FileUpload :tokenId="tokenId" :api="api" />
     </div>
   </div>
 </template>

@@ -7,7 +7,8 @@ export default {
   component: TokenCard,
   argTypes: {
     tokenId: { type: "number" },
-    url: { type: "string" }
+    url: { type: "string" },
+    api: { type: "string" }
   },
 };
 
@@ -22,5 +23,6 @@ const Template = (args) => ({
 export const Primary = Template.bind({});
 Primary.args = {
   tokenId: 0,
-  url: "https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png"
+  url: "https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png",
+  api: ""
 };

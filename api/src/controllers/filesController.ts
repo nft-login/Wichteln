@@ -1,5 +1,5 @@
 import { Post, Get, Route, FormField, UploadedFile, Path, Response } from "tsoa";
-import { writeFileSync, readFileSync, unlinkSync } from 'fs';
+import { writeFileSync, readFileSync, unlinkSync, rename } from 'fs';
 
 @Route("files")
 export class FilesController {
@@ -8,8 +8,11 @@ export class FilesController {
     @FormField() tokenId: number,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<void> {
-    writeFileSync(`uploads/${tokenId}`, file.buffer);
-    unlinkSync(file.path);
+    rename(file.path, `${file.destination}/${tokenId}`, (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
   }
 
 

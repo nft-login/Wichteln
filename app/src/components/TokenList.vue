@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TokenCard from "./TokenCard.vue";
 import { Token } from "../models/token";
-defineProps<{ tokens: Token[] }>();
+defineProps<{ api: string; tokens: Token[] }>();
 </script>
 
 <template>
@@ -10,6 +10,7 @@ defineProps<{ tokens: Token[] }>();
       :key="token.tokenId"
       :token-id="token.tokenId"
       :url="token.url"
+      :api="api"
     />
   </div>
 </template>

@@ -18,7 +18,7 @@ tokens = tokens.map((token: number) => {
 </script>
 
 <template>
-  <TokenList :tokens="tokens" />
+  <TokenList :tokens="tokens" :api="api" />
 </template>
 
 <style scoped>

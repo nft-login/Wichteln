@@ -1,12 +1,11 @@
 import TokenList from "../components/TokenList.vue";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap";
 
 export default {
   title: "TokenList",
   component: TokenList,
   argTypes: {
     tokens: { type: "Object" },
+    api: { type: "string" },
   },
 };
 
@@ -30,4 +29,5 @@ Primary.args = {
       url: "https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png",
     },
   ],
+  api: "",
 };
