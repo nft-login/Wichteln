@@ -35,6 +35,12 @@ router.get("/token/account/:account", async (req, res) => {
     return res.send(response);
 });
 
+router.get("/token/me", async (req, res) => {
+    const controller = new Web3Controller();
+    const response = await controller.me(req);
+    return res.send(response);
+});
+
 router.get("/profile/me", async (req, res) => {
     const controller = new ProfileController();
     const response = await controller.profile(req);

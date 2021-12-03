@@ -1,7 +1,9 @@
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils'
 import * as EarlyAccessGame from "../abis/EarlyAccessGame.json";
-import { Get, Route, Path } from "tsoa";
+import { Get, Route, Path, Request } from "tsoa";
+
+import express from "express";
 
 const CONTRACT = process.env.CONTRACT;
 const NODE_PROVIDER = process.env.NODE_PROVIDER || "";
@@ -37,6 +39,7 @@ export class Web3Blockchain {
     };
 
     tokensOf = async (account: String) => {
+        let accountChecksum = Web3.utils.toChecksumAddress(account.toString());
         let count = await this.tokenCount();
         let promises = []
         for (let i = 0; i < count; i++) {
@@ -46,7 +49,7 @@ export class Web3Blockchain {
         let accountTokens: String[] = []
         owners.forEach(o => {
             if (
-                o[1] === account
+                o[1] === account || o[1] === accountChecksum
             ) {
                 accountTokens.push(o[0]);
             }
@@ -67,18 +70,26 @@ export class Web3Controller {
     /**
      * @example tokenId "2"
      */
-     @Get("owner/{tokenId}")
-     public async owner(
-         @Path() tokenId: number
-     ): Promise<String> {
-         return (await Web3Blockchain.getInstance().ownerOf(tokenId))[1];
-     }
+    @Get("owner/{tokenId}")
+    public async owner(
+        @Path() tokenId: number
+    ): Promise<String> {
+        return (await Web3Blockchain.getInstance().ownerOf(tokenId))[1];
+    }
 
-     @Get("account/{account}")
+    @Get("account/{account}")
     public async account(
         @Path() account: string
     ): Promise<String[]> {
         return (await Web3Blockchain.getInstance().tokensOf(account));
+    }
+
+    @Get("me")
+    public async me(
+        @Request() request: express.Request
+    ): Promise<String[]> {
+        const account = await request.oidc.user?.sub;
+        return this.account(account);
     }
 }
 
