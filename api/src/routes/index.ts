@@ -20,37 +20,37 @@ router.get("/files/:tokenId", async (req, res) => {
 router.get("/token/count", async (req, res) => {
     const controller = new Web3Controller();
     const response = await controller.count();
-    return res.send(response);
+    return res.json(response);
 });
 
 router.get("/token/owner/:tokenId", async (req, res) => {
     const controller = new Web3Controller();
     const response = await controller.owner(Number.parseInt(req.params.tokenId));
-    return res.send(response);
+    return res.json(response);
 });
 
 router.get("/token/account/:account", async (req, res) => {
     const controller = new Web3Controller();
     const response = await controller.account(req.params.account);
-    return res.send(response);
+    return res.json(response);
 });
 
 router.get("/token/me", async (req, res) => {
     const controller = new Web3Controller();
     const response = await controller.me(req);
-    return res.send(response);
+    return res.json(response);
 });
 
 router.get("/token/baseuri", async (_req, res) => {
     const controller = new Web3Controller();
     const response = await controller.baseuri()
-    return res.send(response);
+    return res.json(response);
 });
 
 router.get("/profile/me", async (req, res) => {
     const controller = new ProfileController();
     const response = await controller.profile(req);
-    return res.send(response);
+    return res.json(response);
 });
 
 export default router;
