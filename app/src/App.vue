@@ -1,12 +1,19 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import Dashboard from "./components/Dashboard.vue";
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+
+    <Suspense>
+    <template #default>
+      <Dashboard api="http://localhost:8000/" />
+    </template>
+    <template #fallback>
+      <div style="text-align: center; padding-top: 20px">
+        Loading
+      </div>
+    </template>
+  </Suspense>
 </template>
 
 <style>
