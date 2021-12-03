@@ -5,5 +5,6 @@ services:
     environment:
       - PORT=3080
       - HOST=0.0.0.0
+      - BASE_URL=http://localhost:3080
     ports:
       - "3080:3080"

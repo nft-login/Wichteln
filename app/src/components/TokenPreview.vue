@@ -3,7 +3,8 @@ defineProps<{ url: string }>();
 </script>
 
 <template>
-  <img :src="url" />
+  <img v-if="url.startsWith('http')" :src="url" />
+  <div v-if="url.startsWith('<')" v-html="url" />
 </template>
 
 <style scoped>
