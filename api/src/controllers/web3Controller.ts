@@ -56,6 +56,10 @@ export class Web3Blockchain {
         })
         return accountTokens;
     }
+
+    baseURI = async (): Promise<string> => {
+        return await this.contract.methods.baseURI().call();
+    };
 }
 
 @Route("token")
@@ -90,6 +94,12 @@ export class Web3Controller {
     ): Promise<String[]> {
         const account = await request.oidc.user?.sub;
         return this.account(account);
+    }
+
+    @Get("baseuri")
+    public async baseuri(
+    ): Promise<String> {
+        return (await Web3Blockchain.getInstance().baseURI());
     }
 }
 
