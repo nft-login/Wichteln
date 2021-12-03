@@ -1,4 +1,6 @@
 import TokenCard from "../components/TokenCard.vue";
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
 
 export default {
   title: "TokenCard",

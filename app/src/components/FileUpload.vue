@@ -11,7 +11,9 @@ const handleFileUpload = async () => {
 </script>
 
 <template>
-  <input ref="fileInput" v-on:change="handleFileUpload()" type="file" />
+  <div class="form-group">
+    <input ref="fileInput" v-on:change="handleFileUpload()" type="file" class="form-control" />
+  </div>
 </template>
 
 <style scoped>
