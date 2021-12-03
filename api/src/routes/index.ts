@@ -1,14 +1,21 @@
 import express from "express";
+import multer from "multer";
 import { FilesController } from '../controllers/filesController';
 import { Web3Controller } from "../controllers/web3Controller";
 import { ProfileController } from "../controllers/profileController";
 
 const router = express.Router();
 
-router.post("/files", async (req, res) => {
+var upload = multer({ dest: 'uploads/' });
+var type = upload.single('file');
+
+router.post("/files/upload", type, async (req, res) => {
     const controller = new FilesController();
-    const response = await controller.uploadFile(req.body.tokenId, req.body.file);
-    return res.send(response);
+    if (req.file) {
+        const response = await controller.uploadFile(req.body.tokenId, req.file);
+        return res.send(response);
+    }
+    res.status(400).send("wrong file");
 });
 
 router.get("/files/:tokenId", async (req, res) => {

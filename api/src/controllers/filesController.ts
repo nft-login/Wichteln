@@ -1,15 +1,15 @@
 import { Post, Get, Route, FormField, UploadedFile, Path, Response } from "tsoa";
-import { writeFileSync, readFileSync } from 'fs';
+import { writeFileSync, readFileSync, unlinkSync } from 'fs';
 
 @Route("files")
 export class FilesController {
-  @Post("uploadFile")
+  @Post("upload")
   public async uploadFile(
     @FormField() tokenId: number,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<void> {
-    console.log(file);
     writeFileSync(`uploads/${tokenId}`, file.buffer);
+    unlinkSync(file.path);
   }
 
 
