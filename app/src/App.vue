@@ -6,7 +6,7 @@ import Dashboard from "./components/Dashboard.vue";
 
     <Suspense>
     <template #default>
-      <Dashboard api="http://localhost:8000/" />
+      <Dashboard api="/" />
     </template>
     <template #fallback>
       <div style="text-align: center; padding-top: 20px">
