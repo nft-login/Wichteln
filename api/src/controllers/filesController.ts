@@ -1,5 +1,5 @@
 import { Post, Get, Route, FormField, UploadedFile, Path, Response } from "tsoa";
-import { writeFileSync, readFileSync, unlinkSync, rename } from 'fs';
+import { readFileSync, rename } from 'fs';
 
 @Route("files")
 export class FilesController {

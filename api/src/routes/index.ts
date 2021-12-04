@@ -4,9 +4,11 @@ import { FilesController } from '../controllers/filesController';
 import { Web3Controller } from "../controllers/web3Controller";
 import { ProfileController } from "../controllers/profileController";
 
+const UPLOADS_PATH = process.env.UPLOADS_PATH || 'uploads/'
+
 const router = express.Router();
 
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({ dest: UPLOADS_PATH });
 var type = upload.single('file');
 
 router.post("/files/upload", type, async (req, res) => {
