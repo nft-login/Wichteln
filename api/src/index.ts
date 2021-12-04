@@ -10,6 +10,7 @@ import Router from "./routes";
 
 const PORT = process.env.PORT || 8000;
 const PUBLIC_PATH = process.env.PUBLIC_PATH || "public/";
+const SECRET = process.env.SECRET || "secret";
 
 const app: Application = express();
 
@@ -20,8 +21,8 @@ app.use(express.static(PUBLIC_PATH));
 app.use(express.static('public'));
 
 app.use(auth({
-  idpLogout: true,
-  clientSecret: 'secret',
+  idpLogout: false,
+  clientSecret: SECRET,
   authorizationParams: {
     response_type: 'code id_token',
     scope: 'openid profile',
