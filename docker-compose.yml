@@ -2,9 +2,23 @@ version: "3"
 services:
   app:
     build: .
+    env_file: .env
     environment:
-      - PORT=3080
+      - PORT=$PORT
       - HOST=0.0.0.0
-      - BASE_URL=http://localhost:3080
+      - BASE_URL=$BASE_URL
+      - CONTRACT=$CONTRACT
+      - NODE_PROVIDER=$NODE_PROVIDER
+      - ISSUER_BASE_URL=$ISSUER_BASE_URL
+      - CLIENT_ID=$CLIENT_ID
+      - SECRET=$SECRET
+      
     ports:
-      - "3080:3080"
+      - "$PORT:$PORT"
+
+  tunnel:
+    image: cloudflare/cloudflared:2021.11.0
+    command: tunnel --config /etc/cloudflared/config.yml --no-autoupdate run
+    volumes:
+      - "./.cloudflared:/etc/cloudflared"
+    
