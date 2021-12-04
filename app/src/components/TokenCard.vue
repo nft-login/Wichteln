@@ -6,7 +6,7 @@ const flipUrl = `${props.api}files/${props.tokenId}`;
 </script>
 
 <template>
-  <div class="card">
+  <div id="tokencard" class="card">
     <div class="card-body">
       <h1>Token: {{ tokenId }}</h1>
       <TokenMedia :url="url" :flipUrl="flipUrl" />
@@ -16,4 +16,7 @@ const flipUrl = `${props.api}files/${props.tokenId}`;
 </template>
 
 <style scoped>
+#tokencard {
+  margin: 2em;
+}
 </style>

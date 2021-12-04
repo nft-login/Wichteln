@@ -18,8 +18,13 @@ tokens = tokens.map((token: number) => {
 </script>
 
 <template>
-  <TokenList :tokens="tokens" :api="api" />
+  <div id="dashboard">
+    <TokenList :tokens="tokens" :api="api" />
+  </div>
 </template>
 
 <style scoped>
+#dashboard {
+  padding: 5em;
+}
 </style>
