@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import Dashboard from "./components/Dashboard.vue";
 import Music from "./components/Music.vue";
+import Login from "./components/Login.vue";
+const api = "/";
 </script>
 
 <template>
   <div id="app">
     <Particles id="tsparticles" url="/particles.json" />
     <Music />
+    <Login :api="api" />
     <Suspense>
       <template #default>
-        <Dashboard api="/" />
+        <Dashboard :api="api" />
       </template>
       <template #fallback>
         <div style="text-align: center; padding-top: 20px">Loading</div>
@@ -25,6 +28,5 @@ import Music from "./components/Music.vue";
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #0d47a1;
 }
 </style>
