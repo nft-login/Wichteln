@@ -2,6 +2,7 @@
 import Dashboard from "./components/Dashboard.vue";
 import Music from "./components/Music.vue";
 import Login from "./components/Login.vue";
+import Market from "./components/Market.vue";
 const api = "/";
 </script>
 
@@ -18,6 +19,7 @@ const api = "/";
         <div style="text-align: center; padding-top: 20px">Loading</div>
       </template>
     </Suspense>
+    <Market />
   </div>
 </template>
 
