@@ -12,9 +12,10 @@ services:
       - ISSUER_BASE_URL=$ISSUER_BASE_URL
       - CLIENT_ID=$CLIENT_ID
       - SECRET=$SECRET
-      
-    ports:
-      - "$PORT:$PORT"
+    #ports:
+    #  - "$PORT:$PORT"
+    volumes:
+      - "./uploads:/root/api/uploads"
 
   tunnel:
     image: cloudflare/cloudflared:2021.11.0

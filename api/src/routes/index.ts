@@ -22,8 +22,7 @@ router.post("/files/upload", type, async (req, res) => {
 
 router.get("/files/:tokenId", async (req, res) => {
     const controller = new FilesController();
-    const response = await controller.file(Number.parseInt(req.params.tokenId));
-    return res.send(response);
+    controller.file(Number.parseInt(req.params.tokenId)).then(response => res.send(response)).catch((error) => res.status(404).send());
 });
 
 router.get("/token/count", async (req, res) => {
