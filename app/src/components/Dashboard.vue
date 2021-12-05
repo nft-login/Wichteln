@@ -9,7 +9,7 @@ let tokens = await fetch(`${props.api}token/me`).then((r) => r.json());
 let baseuri = await fetch(`${props.api}token/baseuri`).then((r) => r.json());
 
 tokens = tokens.map((token: number) => {
-  const svgString = toSvg(`${baseuri}${token}`, 100);
+  const svgString = toSvg(`${baseuri}${token}`, 200);
   return {
     tokenId: token,
     url: svgString,
