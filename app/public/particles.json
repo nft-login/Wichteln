@@ -1,6 +1,6 @@
 {
     "fullScreen": {
-        "zIndex": 100
+        "zIndex": 2
     },
     "interactivity": {
         "events": {
@@ -57,7 +57,7 @@
             "density": {
                 "enable": true
             },
-            "value": 400
+            "value": 200
         },
         "opacity": {
             "random": {
