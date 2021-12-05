@@ -15,3 +15,7 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 [We Wish You a Merry Christmas](src/assets/christmas.mp3) by Twin Musicom is licensed under a Creative Commons Attribution license
 Artist: http://www.twinmusicom.org/
+
+## Icons
+
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
