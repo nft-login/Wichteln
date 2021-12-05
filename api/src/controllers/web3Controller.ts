@@ -60,6 +60,13 @@ export class Web3Blockchain {
     baseURI = async (): Promise<string> => {
         return await this.contract.methods.baseURI().call();
     };
+
+    public isOwnerOf = async (tokenId: number, account: String) => {
+        console.log(tokenId, account);
+        let accountChecksum = Web3.utils.toChecksumAddress(account.toString());
+        const owner = (await this.ownerOf(tokenId))[1];
+        return owner === account || owner === accountChecksum;
+    }
 }
 
 @Route("token")

@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { FilesController } from '../controllers/filesController';
-import { Web3Controller } from "../controllers/web3Controller";
+import { Web3Controller, Web3Blockchain } from "../controllers/web3Controller";
 import { ProfileController } from "../controllers/profileController";
 
 const UPLOADS_PATH = process.env.UPLOADS_PATH || 'uploads/'
@@ -12,17 +12,27 @@ var upload = multer({ dest: UPLOADS_PATH });
 var type = upload.single('file');
 
 router.post("/files/upload", type, async (req, res) => {
+    const tokenId = req.body.tokenId;
+    const account = await req.oidc.user?.sub;
+    if (! await Web3Blockchain.getInstance().isOwnerOf(tokenId, account)) {
+        return res.status(401).send();
+    }
     const controller = new FilesController();
     if (req.file) {
-        const response = await controller.uploadFile(req.body.tokenId, req.file);
+        const response = await controller.uploadFile(tokenId, req.file);
         return res.send(response);
     }
     res.status(400).send("wrong file");
 });
 
 router.get("/files/:tokenId", async (req, res) => {
+    const tokenId = Number.parseInt(req.params.tokenId);
+    const account = await req.oidc.user?.sub;
+    if (! await Web3Blockchain.getInstance().isOwnerOf(tokenId, account)) {
+        return res.status(401).send();
+    }
     const controller = new FilesController();
-    controller.file(Number.parseInt(req.params.tokenId)).then(response => res.send(response)).catch((error) => res.status(404).send());
+    controller.file(tokenId).then(response => res.send(response)).catch((error) => res.status(404).send());
 });
 
 router.get("/token/count", async (req, res) => {
