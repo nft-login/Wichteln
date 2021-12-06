@@ -19,7 +19,7 @@ router.post("/files/upload", type, async (req, res) => {
     }
     const controller = new FilesController();
     if (req.file) {
-        const response = await controller.uploadFile(tokenId, req.file);
+        const response = await controller.uploadFile(req, tokenId, req.file);
         return res.send(response);
     }
     res.status(400).send("wrong file");
@@ -32,24 +32,24 @@ router.get("/files/:tokenId", async (req, res) => {
         return res.status(401).send();
     }
     const controller = new FilesController();
-    controller.file(tokenId).then(response => res.send(response)).catch((error) => res.status(404).send());
+    controller.file(req, tokenId).then(response => res.send(response)).catch((error) => res.status(404).send());
 });
 
 router.get("/token/count", async (req, res) => {
     const controller = new Web3Controller();
-    const response = await controller.count();
+    const response = await controller.count(req);
     return res.json(response);
 });
 
 router.get("/token/owner/:tokenId", async (req, res) => {
     const controller = new Web3Controller();
-    const response = await controller.owner(Number.parseInt(req.params.tokenId));
+    const response = await controller.owner(req, Number.parseInt(req.params.tokenId));
     return res.json(response);
 });
 
 router.get("/token/account/:account", async (req, res) => {
     const controller = new Web3Controller();
-    const response = await controller.account(req.params.account);
+    const response = await controller.account(req, req.params.account);
     return res.json(response);
 });
 
@@ -59,9 +59,9 @@ router.get("/token/me", async (req, res) => {
     return res.json(response);
 });
 
-router.get("/token/baseuri", async (_req, res) => {
+router.get("/token/baseuri", async (req, res) => {
     const controller = new Web3Controller();
-    const response = await controller.baseuri()
+    const response = await controller.baseuri(req)
     return res.json(response);
 });
 

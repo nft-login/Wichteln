@@ -1,0 +1,12 @@
+{
+    "42": "https://kovan.infura.io/v3/43",
+    "65": "https://exchaintestrpc.okex.org",
+    "1023": "https://rpc-3.clover.finance",
+    "256": "https://http-testnet.hecochain.com",
+    "44787": "https://alfajores-forno.celo-testnet.org",
+    "80001": "https://matic-mumbai.chainstacklabs.com/",
+    "588": "https://stardust.metis.io/?owner=588",
+    "365": "https://eth-rpc-api-testnet.thetatoken.org/rpc",
+    "43113": "https://api.avax-test.network/ext/bc/C/rpc",
+    "97": "https://data-seed-prebsc-1-s1.binance.org:8545/"
+}

@@ -5,7 +5,7 @@ import { Get, Route, Path, Request } from "tsoa";
 
 import express from "express";
 
-const CONTRACT = process.env.CONTRACT;
+const CONTRACT = process.env.CONTRACT || "";
 const NODE_PROVIDER = process.env.NODE_PROVIDER || "";
 
 export class Web3Blockchain {
@@ -15,18 +15,22 @@ export class Web3Blockchain {
     web3?: Web3;
     contract?: any;
 
-    constructor() {
-        this.init();
+    constructor(node_provider: string, contract: string) {
+        this.init(node_provider, contract);
     }
 
     public static getInstance() {
-        return this._instance || (this._instance = new this());
+        return this._instance || (this._instance = new this(NODE_PROVIDER, CONTRACT));
     }
 
-    init = async () => {
-        this.web3 = new Web3(NODE_PROVIDER);
-        this.contract = new this.web3.eth.Contract(EarlyAccessGame.abi as AbiItem[], CONTRACT);
-        this.contract.setProvider(NODE_PROVIDER);
+    public static instance(node_provider: String | null, contract: String | null) {
+        return new this((node_provider || NODE_PROVIDER).toString(), (contract || CONTRACT).toString());
+    }
+
+    init = async (node_provider: string, contract: string) => {
+        this.web3 = new Web3(node_provider);
+        this.contract = new this.web3.eth.Contract(EarlyAccessGame.abi as AbiItem[], contract);
+        this.contract.setProvider(node_provider);
     }
 
     tokenCount = (): Promise<number> => {
@@ -74,8 +78,10 @@ export class Web3Controller {
 
     @Get("count")
     public async count(
+        @Request() request: express.Request,
     ): Promise<any> {
-        return Web3Blockchain.getInstance().tokenCount();
+        const instance = Web3Blockchain.instance(request.oidc.user?.node, request.oidc.user?.contract);
+        return instance.tokenCount();
     }
 
     /**
@@ -83,16 +89,20 @@ export class Web3Controller {
      */
     @Get("owner/{tokenId}")
     public async owner(
+        @Request() request: express.Request,
         @Path() tokenId: number
     ): Promise<String> {
-        return (await Web3Blockchain.getInstance().ownerOf(tokenId))[1];
+        const instance = Web3Blockchain.instance(request.oidc.user?.node, request.oidc.user?.contract);
+        return (await instance.ownerOf(tokenId))[1];
     }
 
     @Get("account/{account}")
     public async account(
+        @Request() request: express.Request,
         @Path() account: string
     ): Promise<String[]> {
-        return (await Web3Blockchain.getInstance().tokensOf(account));
+        const instance = Web3Blockchain.instance(request.oidc.user?.node, request.oidc.user?.contract);
+        return (await instance.tokensOf(account));
     }
 
     @Get("me")
@@ -100,13 +110,16 @@ export class Web3Controller {
         @Request() request: express.Request
     ): Promise<String[]> {
         const account = await request.oidc.user?.sub;
-        return this.account(account);
+        const instance = Web3Blockchain.instance(request.oidc.user?.node, request.oidc.user?.contract);
+        return (await instance.tokensOf(account));
     }
 
     @Get("baseuri")
     public async baseuri(
+        @Request() request: express.Request
     ): Promise<String> {
-        return (await Web3Blockchain.getInstance().baseURI());
+        const instance = Web3Blockchain.instance(request.oidc.user?.node, request.oidc.user?.contract);
+        return (await instance.baseURI());
     }
 }
 
