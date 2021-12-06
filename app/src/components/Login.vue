@@ -16,23 +16,15 @@ const logout = () => {
 };
 </script>
 <template>
-  {{ me }}
-  <button
-    v-if="!me"
-    type="button"
-    @click="login()"
-    class="btn btn-primary"
-  >
-    Login
-  </button>
-  <button
-    v-if="me"
-    type="button"
-    @click="logout()"
-    class="btn btn-primary"
-  >
-    Logout
-  </button>
+  <div>
+    {{ me }}
+    <button v-if="!me" type="button" @click="login()" class="btn btn-primary">
+      Login
+    </button>
+    <button v-if="me" type="button" @click="logout()" class="btn btn-primary">
+      Logout
+    </button>
+  </div>
 </template>
 
 <style scoped>

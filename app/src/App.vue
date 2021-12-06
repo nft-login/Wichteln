@@ -4,6 +4,11 @@ import Music from "./components/Music.vue";
 import Login from "./components/Login.vue";
 import Market from "./components/Market.vue";
 const api = "/";
+const search = window.location.search;
+const contract = new URLSearchParams(search).get("contract");
+if (!contract) {
+  window.open("/?contract=0xa0d4E5CdD89330ef9d0d1071247909882f0562eA", "_self");
+}
 </script>
 
 <template>
