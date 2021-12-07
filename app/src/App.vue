@@ -3,6 +3,7 @@ import Dashboard from "./components/Dashboard.vue";
 import Music from "./components/Music.vue";
 import Login from "./components/Login.vue";
 import Market from "./components/Market.vue";
+import Loading from "./components/Loading.vue";
 const api = "/";
 const search = window.location.search;
 const contract = new URLSearchParams(search).get("contract");
@@ -21,7 +22,9 @@ if (!contract) {
         <Dashboard :api="api" />
       </template>
       <template #fallback>
-        <div style="text-align: center; padding-top: 20px">Loading</div>
+        <div id="loading">
+          <Loading />
+        </div>
       </template>
     </Suspense>
     <Market />
@@ -35,5 +38,10 @@ if (!contract) {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+#loading {
+  margin: auto;
+  padding: 2em;
+  width: 10%;
 }
 </style>
