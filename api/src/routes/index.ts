@@ -71,4 +71,19 @@ router.get("/profile/me", async (req, res) => {
     return res.json(response);
 });
 
+router.get("/login/:contract", async (req, res) => {
+    const user = await req.oidc.user;
+    if(user) {
+        return res.redirect("/");
+    }
+    let contract = req.params.contract;
+    return res.oidc.login({
+        authorizationParams: {
+            response_type: 'code id_token',
+            scope: 'openid profile',
+            contract: contract
+        }
+    });
+});
+
 export default router;

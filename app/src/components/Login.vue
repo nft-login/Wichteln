@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const props = defineProps<{ api: string }>();
-const loggedIn = ref(false);
 const me = ref(null);
 
 fetch(`${props.api}profile/me`)
@@ -9,7 +8,9 @@ fetch(`${props.api}profile/me`)
   .then((profile) => (me.value = profile));
 
 const login = () => {
-  window.open(`${props.api}login`, "_self");
+  const search = window.location.search;
+  const contract = new URLSearchParams(search).get("contract");
+  window.open(`${props.api}login/${contract}`, "_self");
 };
 const logout = () => {
   window.open(`${props.api}logout`, "_self");
