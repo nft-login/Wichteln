@@ -27,6 +27,10 @@ app.use(auth({
     response_type: 'code id_token',
     scope: 'openid profile',
   },
+  authRequired: false,
+  routes: {
+    login: false
+  },
 }));
 
 app.get("/ping", async (_req, res) => {
